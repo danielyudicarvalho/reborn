@@ -4,4 +4,5 @@
 runConfig:
   # Increase this value if you'd like to automatically spin up
   # more instances in response to increased traffic.
-  maxInstances: 1
+  # Raised from 1 so the service can scale horizontally.
+  maxInstances: 10
