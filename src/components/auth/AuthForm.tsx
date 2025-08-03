@@ -7,13 +7,9 @@ import * as z from 'zod';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup
-} from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
+import { signIn as signInWithEmail, signUp as signUpWithEmail } from '@/lib/auth';
 import { useToast } from '@/hooks/use-toast';
 
 import { Button } from '@/components/ui/button';
@@ -57,9 +53,9 @@ export function AuthForm({ mode }: AuthFormProps) {
     setIsLoading(true);
     try {
       if (mode === 'register') {
-        await createUserWithEmailAndPassword(auth, values.email, values.password);
+        await signUpWithEmail(values.email, values.password);
       } else {
-        await signInWithEmailAndPassword(auth, values.email, values.password);
+        await signInWithEmail(values.email, values.password);
       }
       router.push('/');
       toast({
